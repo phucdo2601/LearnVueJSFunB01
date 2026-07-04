@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { defineStore } from "pinia";
+import { acceptHMRUpdate, defineStore } from "pinia";
 
 export const useCounterStore = defineStore("counter", () => {
   const count = ref(1);
@@ -9,8 +9,13 @@ export const useCounterStore = defineStore("counter", () => {
   }
 
   const decrement = () => {
-    count.value--;
+    count.value -= 2;
   };
 
   return { count, doubleCount, increment, decrement };
 });
+
+// This code snippet is used to enable Hot Module Replacement (HMR) for the Pinia Store in the development environment.
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useCounterStore, import.meta.hot));
+}
