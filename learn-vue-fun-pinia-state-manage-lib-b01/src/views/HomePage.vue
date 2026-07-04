@@ -1,5 +1,11 @@
 <template>
     <div>
+        <h1>Test count val using ref: {{ countValue }} - {{ name }}</h1>
+
+        <div class="">
+            <button @click="updateUserInputName">Update Input name</button>
+        </div>
+
         <Counter1/>
 
         <h1>Home Page</h1>
@@ -27,17 +33,29 @@
 import { useCounterStore } from '@/stores/counter';
 import { usePostsStore02 } from '@/stores/posts2';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { onMounted, reactive, toRef, toRefs } from 'vue';
 import Counter1 from './components/Counter1.vue';
 import { provide } from 'vue';
 
     const counterStore = useCounterStore();
     
-
     const {
         count,
         doubleCount,
     } = storeToRefs(counterStore);
+
+    const countValue = toRef(counterStore, 'count');
+
+    const userInput = reactive({
+        name: "ben",
+        gender: "male"
+    })
+
+    const { name, gender } = toRefs(userInput);
+
+    const updateUserInputName = () => {
+        userInput.name = "Phucdn"
+    }
 
     const {
         increment,
