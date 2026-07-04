@@ -1,5 +1,7 @@
 <template>
     <div>
+        <Counter1/>
+
         <h1>Home Page</h1>
         <div class="">
             {{ count }}
@@ -16,6 +18,8 @@
          <h1>Posts</h1>
          {{ postStore02.posts }}
        </div>
+
+       
     </div>
 </template>
 
@@ -24,8 +28,11 @@ import { useCounterStore } from '@/stores/counter';
 import { usePostsStore02 } from '@/stores/posts2';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
+import Counter1 from './components/Counter1.vue';
+import { provide } from 'vue';
 
     const counterStore = useCounterStore();
+    
 
     const {
         count,
@@ -36,6 +43,8 @@ import { onMounted } from 'vue';
         increment,
         decrement
     } = counterStore;
+
+    provide('counterStore', counterStore);
 
     const postStore02 = usePostsStore02();
 
