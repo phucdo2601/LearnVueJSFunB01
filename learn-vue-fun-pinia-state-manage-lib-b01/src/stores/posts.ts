@@ -2,15 +2,29 @@ import { defineStore } from "pinia";
 
 export const usePostsStore = defineStore("post", {
   state: () => ({
-    post: [],
+    posts: [],
+    sharedPost: {},
   }),
-  getters: {},
+  getters: {
+    countPost: (state) => state.posts.length,
+  },
   actions: {
     async fetchPostsData() {
       const res = await fetch("https://dummyjson.com/posts");
       const data = await res.json();
+      this.posts = data.posts;
+      console.log(data.posts);
+      console.log(this.posts.length);
+    },
+    sharePost(id: any) {
+      console.log(id);
 
-      console.log(data);
+      const post = this.posts.filter((post: any) => post.id === id) as any;
+      console.log(post);
+
+      if (post.length > 0) {
+        this.sharedPost = post;
+      }
     },
   },
 });
