@@ -55,6 +55,9 @@ import { provide } from 'vue';
 
     const updateUserInputName = () => {
         userInput.name = "Phucdn"
+        console.log(counterStore.secret);
+        console.log(counterStore.hello);
+        
     }
 
     const {
